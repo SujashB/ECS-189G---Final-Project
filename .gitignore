@@ -1,0 +1,11 @@
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Cursor IDE files
+.cursor/
+
+# AutoGPTQ repository contents
+AutoGPTQ/

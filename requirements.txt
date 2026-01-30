@@ -1,0 +1,29 @@
+# Core
+transformers>=4.40.0
+datasets>=2.18.0
+accelerate>=0.27.0
+
+# Quantization
+bitsandbytes>=0.42.0
+# Install auto-gptq from source
+
+# Parameter-efficient fine-tuning
+peft>=0.10.0
+trl>=0.8.6
+
+# Fast QLoRA training
+unsloth>=0.3.6
+
+# Tokenizers / model support
+sentencepiece
+protobuf
+
+# Utilities
+numpy
+scipy
+tqdm
+scikit-learn
+
+# Logging (optional but recommended)
+wandb
+tensorboard
