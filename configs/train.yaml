@@ -1,0 +1,57 @@
+# Training configuration for QLoRA fine-tuning with Unsloth
+
+# QLoRA parameters
+qlora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+# Training hyperparameters
+training:
+  learning_rate: 2.0e-4
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+  num_train_epochs: 3
+  max_steps: -1  # -1 means use num_train_epochs
+  warmup_ratio: 0.03
+  weight_decay: 0.01
+  max_seq_length: 1024
+  logging_steps: 10
+  save_steps: 100
+  eval_steps: 100
+  seed: 42
+  
+  # Optimizer
+  optim: "adamw_8bit"
+  lr_scheduler_type: "cosine"
+  
+  # Memory optimization
+  gradient_checkpointing: true
+  fp16: false
+  bf16: true
+
+# Output settings
+output:
+  base_dir: "./runs"
+  save_total_limit: 2
+  push_to_hub: false
+
+# Dataset mixing ratios for training
+data_mixing:
+  harmful_refusal_ratio: 0.5
+  benign_utility_ratio: 0.5
+  
+# Harmful prefix augmentation settings
+prefix_augmentation:
+  enabled: false  # Enable for variant 3+
+  prefix_ratio: 0.3  # Fraction of harmful examples to augment with prefixes

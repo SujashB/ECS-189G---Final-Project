@@ -1,0 +1,44 @@
+# Model configurations
+# Paths to local models or HuggingFace model IDs
+
+models:
+  gemma3-1b:
+    path: "./models/gemma3-1b-it"
+    type: "gemma3"  # Gemma 3 uses different chat template
+    max_seq_length: 2048
+    dtype: "bfloat16"
+    
+  qwen3-1.7b:
+    path: "./models/qwen3-1.7b"
+    type: "qwen2"
+    max_seq_length: 2048
+    dtype: "bfloat16"
+    
+  deepseek-r1-1.5b:
+    path: "./models/deepseek-r1-1.5b"
+    type: "llama"
+    max_seq_length: 2048
+    dtype: "bfloat16"
+
+# Default model to use if not specified
+default_model: "gemma3-1b"
+
+# Chat templates for each model type
+chat_templates:
+  gemma: |
+    <start_of_turn>user
+    {instruction}<end_of_turn>
+    <start_of_turn>model
+    {response}<end_of_turn>
+  gemma3: |
+    <start_of_turn>user
+    {instruction}<end_of_turn>
+    <start_of_turn>model
+    {response}<end_of_turn>
+  qwen2: |
+    <|im_start|>user
+    {instruction}<|im_end|>
+    <|im_start|>assistant
+    {response}<|im_end|>
+  llama: |
+    [INST] {instruction} [/INST] {response}

@@ -1,0 +1,58 @@
+# DeepRefusal intervention configuration
+# Random refusal weakening during training (variant 4)
+
+intervention:
+  # Probability of applying refusal weakening at each step
+  p_weak: 0.3
+  
+  # Strength of projection removal (alpha in h <- h - alpha * (h·d) d)
+  alpha: 1.0
+  
+  # Layers to potentially intervene on (will randomly sample from these)
+  # Use relative indices: -1 = last layer, -2 = second to last, etc.
+  # Or absolute indices: 0, 1, 2, ...
+  layers:
+    - -1
+    - -2
+    - -3
+    - -4
+  
+  # Number of layers to intervene on per step (sampled from above)
+  num_layers_per_step: 2
+  
+  # Fraction of token positions to apply intervention
+  token_frac: 0.5
+  
+  # Whether to apply to all tokens or sample positions
+  random_token_positions: true
+  
+  # Minimum sequence position to start intervention (skip BOS, instruction prefix)
+  min_token_position: 10
+
+# Refusal direction extraction settings
+refusal_direction:
+  # Number of samples for computing refusal direction
+  n_samples: 200
+  
+  # Layer to extract hidden states from (-1 = last transformer block)
+  extraction_layer: -1
+  
+  # Token position for hidden state extraction
+  # "last" = last token, "mean" = mean over all tokens
+  token_aggregation: "last"
+  
+  # Normalization method for refusal direction
+  normalize: true
+
+# Verification experiment settings
+verification:
+  # Alpha values to test for refusal amplification/suppression
+  alpha_values:
+    - 0.0
+    - 0.5
+    - 1.0
+    - 1.5
+    - 2.0
+  
+  # Number of samples for verification
+  n_samples: 50

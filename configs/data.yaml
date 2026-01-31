@@ -1,0 +1,61 @@
+# Data configuration
+# Supports both HuggingFace datasets and local files
+
+datasets:
+  # AdvBench - Harmful prompts for refusal training
+  advbench:
+    hf_path: "McGill-NLP/AdvBench-IR"
+    hf_split: "train"
+    local_path: null  # Set to local path if using local files
+    prompt_column: "query"  # Column containing harmful prompts
+    use_local: false
+    
+  # HarmBench - Jailbreak evaluation
+  harmbench:
+    hf_path: "walledai/HarmBench"
+    hf_config: "standard"
+    hf_split: "train"  # HarmBench only has train split
+    local_path: null
+    prompt_column: "prompt"
+    use_local: false
+    
+  # XSTest - Over-refusal evaluation  
+  xstest:
+    hf_path: "walledai/XSTest"
+    hf_split: "test"
+    local_path: null
+    prompt_column: "prompt"
+    label_column: "label"  # safe vs unsafe
+    use_local: false
+    
+  # UltraChat - Benign instruction-response pairs
+  ultrachat:
+    hf_path: "HuggingFaceH4/ultrachat_200k"
+    hf_split: "train_sft"
+    local_path: null
+    use_local: false
+    # Number of samples to use (full dataset is large)
+    max_samples: 10000
+
+# Output paths for processed data
+processed_data:
+  output_dir: "./data/processed"
+  advbench_harmful_train: "advbench_harmful_train.jsonl"
+  ultrachat_benign_train: "ultrachat_benign_train.jsonl"
+  xstest_eval: "xstest_eval.jsonl"
+  harmbench_standard_eval: "harmbench_standard_eval.jsonl"
+  harmful_prefix_train: "harmful_prefix_train.jsonl"
+
+# Refusal response templates for training
+refusal_templates:
+  - "I cannot help with that request. It appears to involve potentially harmful or unethical content."
+  - "I'm not able to assist with this. The request seems to involve harmful activities."
+  - "I apologize, but I can't provide help with this request as it may lead to harm."
+  - "I'm sorry, but I cannot fulfill this request. It goes against my guidelines for safe interactions."
+  - "This request appears to involve harmful content, and I'm not able to help with it."
+
+# Train/eval split settings
+splits:
+  train_ratio: 0.9
+  eval_ratio: 0.1
+  seed: 42

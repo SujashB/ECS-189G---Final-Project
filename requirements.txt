@@ -1,18 +1,25 @@
-# Core
+# Core PyTorch (install first!)
+# For RTX 5070 Ti (Blackwell), you need PyTorch with CUDA 12.8+ support
+# Install separately: pip install torch --index-url https://download.pytorch.org/whl/cu128
+torch>=2.1.0
+
+# Transformers ecosystem
 transformers>=4.40.0
 datasets>=2.18.0
 accelerate>=0.27.0
+huggingface_hub>=0.20.0
 
-# Quantization
+# Quantization (bitsandbytes works with Blackwell)
 bitsandbytes>=0.42.0
-# Install auto-gptq from source
+# Note: auto-gptq removed due to build issues with newer GPUs
 
 # Parameter-efficient fine-tuning
 peft>=0.10.0
 trl>=0.8.6
 
-# Fast QLoRA training
-unsloth>=0.3.6
+# Fast QLoRA training with Unsloth
+# Install separately if needed: pip install unsloth
+unsloth
 
 # Tokenizers / model support
 sentencepiece
@@ -23,7 +30,12 @@ numpy
 scipy
 tqdm
 scikit-learn
+pyyaml
 
-# Logging (optional but recommended)
+# Evaluation metrics
+rouge-score
+nltk
+
+# Logging (optional)
 wandb
 tensorboard
