@@ -13,15 +13,19 @@ if [ -d ".venv" ]; then
     source .venv/bin/activate
 fi
 
-# Check CUDA availability
+# Check CUDA availability (required for training)
 echo "Checking CUDA availability..."
-python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"None\"}')" || {
-    echo "ERROR: CUDA not available. For RTX 5070 Ti:"
-    echo "  1. Reboot your system (driver mismatch fix)"
-    echo "  2. Ensure you have the latest NVIDIA driver (570+)"
-    echo "  3. Install PyTorch with CUDA 12.8: pip install torch --index-url https://download.pytorch.org/whl/cu128"
+CUDA_OK=$(python -c "import torch; print('yes' if torch.cuda.is_available() else 'no')" 2>/dev/null || echo "no")
+if [ "$CUDA_OK" = "yes" ]; then
+    python -c "import torch; print(f'✓ CUDA {torch.version.cuda} available'); print(f'✓ GPU: {torch.cuda.get_device_name(0)}'); print(f'✓ VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB')"
+else
+    echo "ERROR: CUDA not available!"
+    echo "For RTX 5070 Ti, you need:"
+    echo "  1. Reboot your system"
+    echo "  2. NVIDIA driver 570+"
+    echo "  3. PyTorch with CUDA 12.8: pip install torch --index-url https://download.pytorch.org/whl/cu128"
     exit 1
-}
+fi
 
 echo "=============================================="
 echo "Step 1: Prepare Data"

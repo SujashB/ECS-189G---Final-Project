@@ -73,13 +73,25 @@ def load_model_and_tokenizer(
         try:
             from unsloth import FastLanguageModel
             
+            # Map local paths to HuggingFace hub for Unsloth (tokenizer bug workaround)
+            # Unsloth works better with HF hub paths for newer models like Gemma 3
+            hf_model_map = {
+                "./models/gemma3-1b-it": "google/gemma-3-1b-it",
+                "./models/qwen3-1.7b": "Qwen/Qwen3-1.7B",
+                "./models/deepseek-r1-1.5b": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+            }
+            
+            # Use HF hub path if available, otherwise use local path
+            unsloth_model_path = hf_model_map.get(model_path, model_path)
+            logger.info(f"Unsloth loading from: {unsloth_model_path}")
+            
             model, tokenizer = FastLanguageModel.from_pretrained(
-                model_name=model_path,
+                model_name=unsloth_model_path,
                 max_seq_length=seq_length,
                 dtype=dtype,
                 load_in_4bit=load_in_4bit,
             )
-        except (ImportError, NotImplementedError, RuntimeError) as e:
+        except (ImportError, NotImplementedError, RuntimeError, TypeError) as e:
             logger.warning(f"Unsloth failed ({e}), falling back to standard loading")
             use_unsloth = False
     
@@ -87,12 +99,57 @@ def load_model_and_tokenizer(
         from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
         from peft import prepare_model_for_kbit_training
         
-        # Load tokenizer with trust_remote_code for newer models like Gemma 3
-        tokenizer = AutoTokenizer.from_pretrained(
-            model_path,
-            trust_remote_code=True,
-            use_fast=True,
-        )
+        # Load config first
+        try:
+            config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+            model_type = getattr(config, 'model_type', 'unknown')
+            logger.info(f"Detected model type: {model_type}")
+        except Exception as e:
+            logger.warning(f"Failed to load config: {e}")
+            config = None
+            model_type = 'unknown'
+        
+        # Load tokenizer - transformers 4.57 has a bug with local Gemma 3 tokenizer
+        # Workaround: load from HuggingFace Hub based on model type
+        tokenizer = None
+        
+        # Map local model types to HF hub paths for tokenizer
+        hf_tokenizer_map = {
+            'gemma3_text': 'google/gemma-3-1b-it',
+            'gemma3': 'google/gemma-3-1b-it',
+            'gemma2': 'google/gemma-2-2b-it',
+            'gemma': 'google/gemma-2b-it',
+            'qwen2': 'Qwen/Qwen2.5-1.5B-Instruct',
+            'llama': None,  # Usually works locally
+        }
+        
+        # Try local first
+        try:
+            tokenizer = AutoTokenizer.from_pretrained(
+                model_path,
+                trust_remote_code=True,
+                use_fast=True,
+            )
+            logger.info("Loaded tokenizer from local path")
+        except (AttributeError, TypeError) as e:
+            logger.warning(f"Local tokenizer failed ({e})")
+            
+            # Try HF hub fallback based on model type
+            hf_path = hf_tokenizer_map.get(model_type)
+            if hf_path:
+                logger.info(f"Trying tokenizer from HuggingFace: {hf_path}")
+                try:
+                    tokenizer = AutoTokenizer.from_pretrained(
+                        hf_path,
+                        trust_remote_code=True,
+                    )
+                    logger.info(f"Loaded tokenizer from {hf_path}")
+                except Exception as e2:
+                    logger.error(f"HF tokenizer also failed: {e2}")
+        
+        if tokenizer is None:
+            raise RuntimeError(f"Could not load tokenizer for {model_path}. "
+                             "Try: pip install --upgrade transformers")
         
         # Check if CUDA is available for quantization
         cuda_available = torch.cuda.is_available()
@@ -126,7 +183,7 @@ def load_model_and_tokenizer(
             logger.warning("CUDA not available, loading model on CPU (slow)")
             model = AutoModelForCausalLM.from_pretrained(
                 model_path,
-                torch_dtype=torch.float32,  # CPU doesn't support bfloat16 well
+                dtype=torch.float32,  # CPU doesn't support bfloat16 well
                 trust_remote_code=True,
             )
     
