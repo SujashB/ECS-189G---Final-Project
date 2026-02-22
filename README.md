@@ -99,6 +99,47 @@ The reproduction implements 4 variants:
 | `refusal_plus_prefill_aug` | + Harmful-prefix augmentation |
 | `deeprefusal_quantized` | + Random refusal weakening during training |
 
+## KV-Cache Robustness Evaluation (Quantized Inference)
+
+This repo now includes a cache-focused evaluation pipeline for quantized models:
+
+- **Script:** `scripts/kv_cache_eval.py`
+- **Package:** `src/kv_eval/`
+- **Tracks:** `ollama`, `hf`, `hybrid`
+- **Attack modes:** `none`, `prefill`, `cache_contam`, `cache_reuse`
+
+### Quick Run (Ollama)
+
+```bash
+python scripts/kv_cache_eval.py \
+  --track ollama \
+  --models gemma3:1b,qwen3:1.7b \
+  --harmful-samples 20 \
+  --benign-samples 20 \
+  --attack-modes none,prefill,cache_contam,cache_reuse \
+  --defense-grid 0.3:0.5,0.7:1.5 \
+  --num-candidates 2
+```
+
+### Hybrid Run (Ollama + HF KV Instrumentation)
+
+```bash
+python scripts/kv_cache_eval.py \
+  --track hybrid \
+  --models gemma3:1b,qwen3:1.7b \
+  --hf-models gemma3-1b,qwen3-1.7b \
+  --models-config configs/models.yaml
+```
+
+### Outputs
+
+Each run writes:
+
+- `artifacts/kv_cache_eval/<timestamp>/raw.jsonl`
+- `artifacts/kv_cache_eval/<timestamp>/summary.json`
+- `artifacts/kv_cache_eval/<timestamp>/tables.csv`
+- `artifacts/kv_cache_eval/latest.json` (pointer to most recent run)
+
 ## Complete Pipeline Commands
 
 ### Step 1: Prepare Data
