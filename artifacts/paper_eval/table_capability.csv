@@ -1,4 +1,4 @@
-Model,Baseline MMLU,DeepRefusal MMLU,Delta MMLU,Baseline GSM8k,DeepRefusal GSM8k,Delta GSM8k
-Gemma-3 1B,0.34,0.37,+0.03,0.17,0.20,+0.03
-Qwen-3 1.7B,0.41,0.45,+0.04,0.08,0.46,+0.38
-DeepSeek-R1 1.5B,0.28,0.28,+0.00,0.08,0.08,+0.00
+model,baseline_mmlu,deeprefusal_mmlu,baseline_gsm8k,deeprefusal_gsm8k
+gemma3-1b,0.3400,0.3700,0.1700,0.2000
+qwen3-1.7b,0.4100,0.4500,0.0800,0.4600
+deepseek-r1-1.5b,0.2800,0.2800,0.0800,0.1500

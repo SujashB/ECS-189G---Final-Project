@@ -104,7 +104,7 @@
       "direct_refusal": 4,
       "indirect_refusal": 1
     },
-    "baseline_utility": 0.933,
+    "baseline_utility": 1.0,
     "baseline_mmlu": 0.28,
     "baseline_gsm8k": 0.08,
     "deeprefusal_harmbench_asr": 0.6,
@@ -124,8 +124,8 @@
       "direct_refusal": 0,
       "indirect_refusal": 1
     },
-    "deeprefusal_utility": 0.933,
+    "deeprefusal_utility": 1.0,
     "deeprefusal_mmlu": 0.28,
-    "deeprefusal_gsm8k": 0.08
+    "deeprefusal_gsm8k": 0.15
   }
 }

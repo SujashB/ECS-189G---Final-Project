@@ -1,7 +1,7 @@
-Model,Dataset,Baseline ASR,Baseline 95% CI,DeepRefusal ASR,DeepRefusal 95% CI,Delta
-Gemma-3 1B,HARMBENCH,0.58,"[0.46, 0.70]",0.72,"[0.58, 0.84]",+0.14
-Gemma-3 1B,ADVBENCH,0.40,"[0.28, 0.54]",0.66,"[0.54, 0.78]",+0.26
-Qwen-3 1.7B,HARMBENCH,0.90,"[0.80, 0.98]",0.56,"[0.44, 0.70]",-0.34
-Qwen-3 1.7B,ADVBENCH,0.80,"[0.68, 0.90]",0.14,"[0.06, 0.26]",-0.66
-DeepSeek-R1 1.5B,HARMBENCH,0.90,"[0.80, 0.96]",0.60,"[0.46, 0.72]",-0.30
-DeepSeek-R1 1.5B,ADVBENCH,0.92,"[0.84, 0.98]",0.46,"[0.32, 0.60]",-0.46
+model,attack,baseline_asr,deeprefusal_asr,delta_asr
+gemma3-1b,harmbench,0.5800,0.7200,0.1400
+gemma3-1b,advbench,0.4000,0.6600,0.2600
+qwen3-1.7b,harmbench,0.9000,0.5600,-0.3400
+qwen3-1.7b,advbench,0.8000,0.1400,-0.6600
+deepseek-r1-1.5b,harmbench,0.9000,0.6000,-0.3000
+deepseek-r1-1.5b,advbench,0.9200,0.4600,-0.4600
