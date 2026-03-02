@@ -53,8 +53,6 @@ models/*
 !models/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
-artifacts/*
-!artifacts/.gitkeep
 runs/*
 !runs/.gitkeep
 

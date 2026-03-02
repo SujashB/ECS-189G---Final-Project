@@ -1,0 +1,3 @@
+model,track,attack_mode,defense_name,n_total,n_harmful,n_benign,refusal_rate,asr,over_refusal_rate,utility_rate,p50_latency_ms,p95_latency_ms,toks_per_sec,asr_ci_low,asr_ci_high,over_refusal_ci_low,over_refusal_ci_high
+qwen3:1.7b,ollama,none,baseline,2,1,1,0.0,1.0,0.0,1.0,294.58117300237063,351.96286360223894,54.314401144268786,1.0,1.0,0.0,0.0
+qwen3:1.7b,ollama,none,deeprefusal_p0.3_a0.5,2,1,1,0.0,1.0,0.0,1.0,255.91040899962536,257.1634862000792,62.521880460217716,1.0,1.0,0.0,0.0

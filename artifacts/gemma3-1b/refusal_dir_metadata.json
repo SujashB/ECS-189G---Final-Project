@@ -1,0 +1,9 @@
+{
+  "model": "gemma3-1b",
+  "layer_index": -1,
+  "token_aggregation": "last",
+  "n_harmful": 200,
+  "n_benign": 200,
+  "hidden_dim": 1152,
+  "timestamp": "2026-02-02T08:04:47.735916"
+}

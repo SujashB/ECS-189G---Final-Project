@@ -1,0 +1,131 @@
+{
+  "gemma3-1b": {
+    "model": "gemma3-1b",
+    "baseline_harmbench_asr": 0.58,
+    "baseline_harmbench_ci": [
+      0.46,
+      0.7
+    ],
+    "baseline_advbench_asr": 0.4,
+    "baseline_advbench_ci": [
+      0.28,
+      0.54
+    ],
+    "baseline_overrefusal": 0.06,
+    "baseline_overrefusal_detail": {
+      "direct_answer": 41,
+      "indirect_answer": 6,
+      "direct_refusal": 0,
+      "indirect_refusal": 3
+    },
+    "baseline_utility": 0.967,
+    "baseline_mmlu": 0.34,
+    "baseline_gsm8k": 0.17,
+    "deeprefusal_harmbench_asr": 0.72,
+    "deeprefusal_harmbench_ci": [
+      0.58,
+      0.84
+    ],
+    "deeprefusal_advbench_asr": 0.66,
+    "deeprefusal_advbench_ci": [
+      0.54,
+      0.78
+    ],
+    "deeprefusal_overrefusal": 0.04,
+    "deeprefusal_overrefusal_detail": {
+      "direct_answer": 44,
+      "indirect_answer": 4,
+      "direct_refusal": 2,
+      "indirect_refusal": 0
+    },
+    "deeprefusal_utility": 0.967,
+    "deeprefusal_mmlu": 0.37,
+    "deeprefusal_gsm8k": 0.2
+  },
+  "qwen3-1.7b": {
+    "model": "qwen3-1.7b",
+    "baseline_harmbench_asr": 0.9,
+    "baseline_harmbench_ci": [
+      0.8,
+      0.98
+    ],
+    "baseline_advbench_asr": 0.8,
+    "baseline_advbench_ci": [
+      0.68,
+      0.9
+    ],
+    "baseline_overrefusal": 0.02,
+    "baseline_overrefusal_detail": {
+      "direct_answer": 35,
+      "indirect_answer": 14,
+      "direct_refusal": 0,
+      "indirect_refusal": 1
+    },
+    "baseline_utility": 1.0,
+    "baseline_mmlu": 0.41,
+    "baseline_gsm8k": 0.08,
+    "deeprefusal_harmbench_asr": 0.56,
+    "deeprefusal_harmbench_ci": [
+      0.44,
+      0.7
+    ],
+    "deeprefusal_advbench_asr": 0.14,
+    "deeprefusal_advbench_ci": [
+      0.06,
+      0.26
+    ],
+    "deeprefusal_overrefusal": 0.08,
+    "deeprefusal_overrefusal_detail": {
+      "direct_answer": 38,
+      "indirect_answer": 8,
+      "direct_refusal": 1,
+      "indirect_refusal": 3
+    },
+    "deeprefusal_utility": 0.967,
+    "deeprefusal_mmlu": 0.45,
+    "deeprefusal_gsm8k": 0.46
+  },
+  "deepseek-r1-1.5b": {
+    "model": "deepseek-r1-1.5b",
+    "baseline_harmbench_asr": 0.9,
+    "baseline_harmbench_ci": [
+      0.8,
+      0.96
+    ],
+    "baseline_advbench_asr": 0.92,
+    "baseline_advbench_ci": [
+      0.84,
+      0.98
+    ],
+    "baseline_overrefusal": 0.1,
+    "baseline_overrefusal_detail": {
+      "direct_answer": 39,
+      "indirect_answer": 6,
+      "direct_refusal": 4,
+      "indirect_refusal": 1
+    },
+    "baseline_utility": 0.933,
+    "baseline_mmlu": 0.28,
+    "baseline_gsm8k": 0.08,
+    "deeprefusal_harmbench_asr": 0.6,
+    "deeprefusal_harmbench_ci": [
+      0.46,
+      0.72
+    ],
+    "deeprefusal_advbench_asr": 0.46,
+    "deeprefusal_advbench_ci": [
+      0.32,
+      0.6
+    ],
+    "deeprefusal_overrefusal": 0.02,
+    "deeprefusal_overrefusal_detail": {
+      "direct_answer": 41,
+      "indirect_answer": 8,
+      "direct_refusal": 0,
+      "indirect_refusal": 1
+    },
+    "deeprefusal_utility": 0.933,
+    "deeprefusal_mmlu": 0.28,
+    "deeprefusal_gsm8k": 0.08
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "strengthen_benign": {
+    "0.0": {
+      "refusal_rate": 0.0,
+      "n_samples": 50
+    },
+    "0.5": {
+      "refusal_rate": 0.0,
+      "n_samples": 50
+    },
+    "1.0": {
+      "refusal_rate": 0.0,
+      "n_samples": 50
+    },
+    "1.5": {
+      "refusal_rate": 0.0,
+      "n_samples": 50
+    },
+    "2.0": {
+      "refusal_rate": 0.0,
+      "n_samples": 50
+    }
+  },
+  "weaken_harmful": {
+    "0.0": {
+      "refusal_rate": 0.84,
+      "n_samples": 50
+    },
+    "0.5": {
+      "refusal_rate": 0.8,
+      "n_samples": 50
+    },
+    "1.0": {
+      "refusal_rate": 0.62,
+      "n_samples": 50
+    },
+    "1.5": {
+      "refusal_rate": 0.76,
+      "n_samples": 50
+    },
+    "2.0": {
+      "refusal_rate": 0.86,
+      "n_samples": 50
+    }
+  }
+}
